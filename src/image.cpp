@@ -1,14 +1,20 @@
 /*
- * Desarrollado por: Baca Barbosa Braulio José.
- * 		     Guevara Mosqueda Héctor.
- * 		     Hernández Antonio Aldo Isaac.
- * Fecha de creación: 25/11/2020.
- * Descripción: Definición de funciones clase Image.
- */
 
+	Desarrollado por:
+ 		Baca Barbosa Braulio José.
+		Guevara Mosqueda Héctor.
+		Hernández Antonio Aldo Isaac.
+
+	Fecha de creación: 25/11/2020.
+	Descripción: Definición de funciones clase Image.
+
+*/
+
+// Dependencias
 // #include "../includes/pixel.hpp"
 #include "../includes/image.hpp"
 
+// Funciones miembro de clase Image
 // Constructor por defecto.
 Image::Image() {
 
