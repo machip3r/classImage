@@ -1,14 +1,10 @@
 /*
-
-	Desarrollado por:
- 		Baca Barbosa Braulio José.
-		Guevara Mosqueda Héctor.
-		Hernández Antonio Aldo Isaac.
-
-	Fecha de creación: 25/11/2020.
-	Descripción: Declaración clase Image.
-
-*/
+ * Desarrollado por: Baca Barbosa Braulio José.
+ * 	 	     Guevara Mosqueda Héctor.
+ * 	 	     Hernández Antonio Aldo Isaac.
+ * Fecha de creación: 25/11/2020.
+ * Descripción: Declaración clase Image.
+ */
 
 // Guarda
 #ifndef IMAGE_HPP
