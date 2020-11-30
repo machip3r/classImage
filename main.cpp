@@ -13,8 +13,15 @@
 // Declaraciones globales
 using namespace std;
 
+void pruebas(){
+
+}
+
 // Función principal
 int main( void ) {
 	// Salida exitosa del programa
 	return 0;
 }
+
+
+
