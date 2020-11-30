@@ -13,6 +13,7 @@
 // Declaraciones globales
 using namespace std;
 
+//Probar la tareas de leer
 void pruebas(){
 
 }
