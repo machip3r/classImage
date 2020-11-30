@@ -75,3 +75,8 @@ const Image &Image::operator=( const Image &img ) {
 Image &Image::operator+( const Image &img ) {
 	return *this;
 }
+Image::~Image(){
+
+}
+
+

@@ -5,10 +5,8 @@
  * Fecha de creación: 25/11/2020.
  * Descripción: Declaración estructura Pixel.
  */
-
 // Declaraciones globales
 // Estructuras
-
 #ifndef PIXEL_HPP
 	#define PIXEL_HPP
 		struct Pixel {

@@ -15,7 +15,9 @@ using namespace std;
 
 //Probar la tareas de leer
 void pruebas(){
-	cout<<"Hola gente";
+	cout<<"Hola gente 2";
+	Image img;
+	img.read("hackers.jpg");
 }
 
 // Función principal

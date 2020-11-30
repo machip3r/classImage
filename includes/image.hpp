@@ -12,6 +12,7 @@
 
 	// Dependencias
 	#include "../includes/pixel.hpp"
+
 	// Declaraciones globales
 	// Clases
 	class Image {
