@@ -10,8 +10,8 @@
 // Estructuras
 struct Pixel {
 	// Constructor.
-	Pixel( float = 0.0, float = 0.0, float = 0.0, float = 0.0 );
+	Pixel( char = 0, char = 0, char = 0, char = 0 );
 
 	// Datos de miembro: Red, Green, Blue, Alpha, respectivamente.
-	float r, g, b, a;
+	unsigned char r, g, b, a;
 };

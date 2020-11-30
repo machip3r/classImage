@@ -30,7 +30,7 @@
 			Image( Image * );
 
 			// Abrir una imagen.
-			void read() const;
+			void read(char*filename) ;
 
 			// Guardar una imagen.
 			void write();
@@ -41,7 +41,6 @@
 
 			// Regresa referencia al valor en x, y. Para consultar/modificar el valor.
 			Pixel operator()( int, int );
-
 			// Operador de asignación.
 			const Image &operator=( const Image & );
 
@@ -53,6 +52,7 @@
 		private:
 			int width;	// Ancho de la imagen.
 			int height;	// Alto de la imagen.
+			Pixel* pixels;
 	};
 
 #endif

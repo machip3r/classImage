@@ -9,6 +9,8 @@
 // Dependencias
 // #include "../includes/pixel.hpp"
 #include "../includes/image.hpp"
+#include "../includes/lodepng.hpp"
+#include <iostream>
 
 // Funciones miembro de clase Image
 // Constructor por defecto.
@@ -32,8 +34,25 @@ Image::Image( Image *img ) {
 }
 
 // Abrir una imagen.
-void Image::read() const {
-
+void Image::read(char*filename) {
+	std::vector<unsigned char> image;
+	unsigned w,h;
+	unsigned error=lodepng::decode(image,w,h,filename);
+	if(error) std::cout<<"Error ";lodepng_error_text(error);
+	if(pixels!=NULL){
+		delete [] pixels;
+	}
+	pixels=new Pixel[w*h];
+	int j=0;
+	for(int i=0;i<image.size();i+=4){
+		pixels[j].r=image[i];
+		pixels[j].g=image[i+1];
+		pixels[j].b=image[i+2];
+		pixels[j].a=image[i+3];
+		j++;
+	}
+	this->width=w;
+	this->height=h;
 }
 
 // Guardar una imagen.
@@ -43,8 +62,8 @@ void Image::write() {
 
 // Regresa referencia al valor en x, y. Para consultar/modificar el valor.
 Pixel Image::operator()( int x, int y ) {
-	Pixel px;
-	return px;
+	int index=y*this->width+x;
+	return pixels[index];
 }
 
 // Operador de asignación.
