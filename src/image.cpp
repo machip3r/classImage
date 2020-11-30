@@ -7,7 +7,7 @@
  */
 
 // Dependencias
-// #include "../includes/pixel.hpp"
+#include "../includes/pixel.hpp"
 #include "../includes/image.hpp"
 #include "../includes/lodepng.hpp"
 #include <iostream>

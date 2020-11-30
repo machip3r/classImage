@@ -11,8 +11,7 @@
 	#define IMAGE_HPP
 
 	// Dependencias
-	#include "pixel.hpp"
-
+	#include "../includes/pixel.hpp"
 	// Declaraciones globales
 	// Clases
 	class Image {

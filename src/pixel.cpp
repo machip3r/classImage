@@ -11,6 +11,9 @@
 
 // Funciones miembro de clase Pixel
 // Constructor
-Pixel::Pixel( float red, float green, float blue, float alpha ) {
-
+Pixel::Pixel( char red, char green, char blue, char alpha ) {
+    this->r=red;
+    this->b=blue;
+    this->g=green;
+    this->a=alpha;
 }

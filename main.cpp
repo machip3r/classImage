@@ -15,12 +15,12 @@ using namespace std;
 
 //Probar la tareas de leer
 void pruebas(){
-
+	cout<<"Hola gente";
 }
 
 // Función principal
 int main( void ) {
-	// Salida exitosa del programa
+	pruebas();
 	return 0;
 }
 
