@@ -24,7 +24,7 @@ public:
     Image( Image * );
 
     // Abrir una imagen.
-    void read(char*filename) ;
+    void read( const char*filename) ;
 
     // Guardar una imagen.
     void write();

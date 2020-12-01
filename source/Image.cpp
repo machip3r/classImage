@@ -32,7 +32,7 @@ Image::Image( Image *img ) {
 }
 
 // Abrir una imagen.
-void Image::read(char *filename) {
+void Image::read(const char *filename) {
     std::vector<unsigned char> image;
     unsigned w,h;
     unsigned error=lodepng::decode(image,w,h,filename);
@@ -42,7 +42,6 @@ void Image::read(char *filename) {
     }
     pixels=new Pixel[w*h];
     int j=0;
-    int sizei=image.size();
     for(int i=0;i<image.size();i+=4){
         pixels[j].r=image[i];
         pixels[j].g=image[i+1];
