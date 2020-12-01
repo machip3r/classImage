@@ -1,15 +1,23 @@
-//
-// Created by vegue on 30/11/2020.
-//
+/*
+    Desarrollado por: 
+        * Baca Barbosa Braulio José.
+        * Guevara Mosqueda Héctor.
+        * Hernández Antonio Aldo Isaac.
+    Fecha de creación: 25/11/2020.
+    Descripción: Declaración clase Image.
+*/
 
-#ifndef POOCALIS_IMAGE_H
-#define POOCALIS_IMAGE_H
-#include "../includes/Pixel.h"
+#ifndef IMAGE_H
+#define IMAGE_H
 
+// Dependencias.
 #include <vector>
+#include "../includes/pixel.h"
+
 using namespace std;
+
 class Image {
-    friend std::vector< unsigned char>* imgToChar(const Image &img);
+    friend vector< unsigned char > *imgToChar( const Image &img );
 public:
     // Constructor por defecto.
     Image();
@@ -24,7 +32,7 @@ public:
     Image( Image * );
 
     // Abrir una imagen.
-    void read( const char*filename) ;
+    void read( const char *filename );
 
     // Guardar una imagen.
     void write();
@@ -35,6 +43,7 @@ public:
 
     // Regresa referencia al valor en x, y. Para consultar/modificar el valor.
     Pixel operator()( int, int );
+
     // Operador de asignación.
     const Image &operator=( const Image & );
 
@@ -46,8 +55,7 @@ public:
 private:
     int width;	// Ancho de la imagen.
     int height;	// Alto de la imagen.
-    Pixel* pixels;
+    Pixel* pixels;  // Arreglo/matriz de Pixel contenedora de la imagen en formato bruto.
 };
 
-
-#endif //POOCALIS_IMAGE_H
+#endif //IMAGE_H
