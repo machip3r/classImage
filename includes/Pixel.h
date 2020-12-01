@@ -1,6 +1,4 @@
-//
-// Created by vegue on 30/11/2020.
-//
+
 
 #ifndef POOCALIS_PIXEL_H
 #define POOCALIS_PIXEL_H

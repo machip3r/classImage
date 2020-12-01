@@ -4,7 +4,8 @@
 
 #ifndef POOCALIS_IMAGE_H
 #define POOCALIS_IMAGE_H
-#include "Pixel.h"
+#include "../includes/Pixel.h"
+
 #include <vector>
 using namespace std;
 class Image {
