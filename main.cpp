@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "./includes/Image.h"
-#include "./source/lodepng.h"
+#include "./includes/lodepng.h"
 
 //Solo es para probar segun escribe una imagen a archivo
 void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsigned width, unsigned height);
