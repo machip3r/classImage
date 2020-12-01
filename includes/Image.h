@@ -9,7 +9,7 @@
 #include <vector>
 using namespace std;
 class Image {
-    friend std::vector< unsigned char> imgToChar(Image img);
+    friend std::vector< unsigned char>* imgToChar(const Image &img);
 public:
     // Constructor por defecto.
     Image();

@@ -79,17 +79,17 @@ Image::~Image(){
 
 }
 
-std::vector<unsigned char>  imgToChar(Image img){
+std::vector<unsigned char>*  imgToChar( const Image &img){
     int size=4*img.width*img.height;
     int sizep=img.width*img.height;
-    std::vector< unsigned  char> arrimg(size);
+    std::vector< unsigned  char> *arrimg=new vector<unsigned char>(size);
     int j=0;
     int i;
     for (i = 0; i < size; i+=4) {
-        arrimg[i]=img.pixels[j].r;
-        arrimg[i+1]=img.pixels[j].g;
-        arrimg[i+2]=img.pixels[j].b;
-        arrimg[i+3]=img.pixels[j].a;
+        (*arrimg)[i]=img.pixels[j].r;
+        (*arrimg)[i+1]=img.pixels[j].g;
+        (*arrimg)[i+2]=img.pixels[j].b;
+        (*arrimg)[i+3]=img.pixels[j].a;
         j++;
     }
     return  arrimg;
