@@ -1,16 +1,8 @@
-/*
- * Desarrollado por: Baca Barbosa Braulio José.
- * 	 	     Guevara Mosqueda Héctor.
- * 	 	     Hernández Antonio Aldo Isaac.
- * Fecha de creación: 25/11/2020.
- * Descripción: Definición de funciones estructura Pixel.
- */
+//
+// Created by vegue on 30/11/2020.
+//
 
-// Dependencias
-#include "../includes/pixel.hpp"
-
-// Funciones miembro de clase Pixel
-// Constructor
+#include "Pixel.h"
 Pixel::Pixel( char red, char green, char blue, char alpha ) {
     this->r=red;
     this->b=blue;
