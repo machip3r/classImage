@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "./includes/image.h"
+#include "./includes/Image.h"
 #include "./source/lodepng.h"
 
 //Solo es para probar segun escribe una imagen a archivo
