@@ -26,20 +26,27 @@ Image::Image() {
 
 // Constructor paramétrico (crear imagen de ancho y alto definido).
 Image::Image( int w, int h ): Image() {
-    // Asignación de ancho y alto de la imagem
+    // Asignación de ancho y alto de la imagen.
     width  = w;
     height = h;
 
     // Si llega a existir un arreglo pixels antes de ser inicializado, se libera.
     if( pixels ) delete [] pixels;
-    
+
     pixels = new Pixel[ w * h ];
+    for( int i = 0; i < height; i++ )
+        for( int j = 0; j < width; j++ ) {
+            pixels[ (i*width) + j ].r = 255;
+            pixels[ (i*width) + j ].g = 255;
+            pixels[ (i*width) + j ].b = 255;
+            pixels[ (i*width) + j ].a = 255;
+        }
 }
 
 // Constructor paramétrico (abre el archivo con el nombre especificado).
-Image::Image( const char *f ): Image() {
-    // Lectura de archivo y asignación al objeto
-    read( f );
+Image::Image( const char *filename ): Image() {
+    // Lectura de archivo y asignación al objeto.
+    read( filename );
 }
 
 // Constructor copia.
@@ -51,8 +58,7 @@ Image::Image( const Image &img ): Image() {
         if( pixels ) delete [] pixels;
         pixels = new Pixel[ width*height ];
 
-        for( int i = 0; i < ( width*height ); i++ )
-            pixels[i] = img.pixels[i];
+        for( int i = 0; i < ( width*height ); i++ ) pixels[i] = img.pixels[i];
     }
 }
 
@@ -63,41 +69,44 @@ void Image::read( const char *filename ) {
     // Decodificamos la imagen.
     unsigned error = decode( image, ( unsigned & ) width, ( unsigned & ) height, filename );
 
-    if( error ) cout << "Hubo un error de ejecución.\nEl error: " << lodepng_error_text(error) << endl;
+    if( error ) cout << "Hubo un error al codificar (error " << error << "): " << lodepng_error_text(error) << endl;
 
     // Si el arreglo de pixeles se encuentra inicializado, eliminar.
     if( pixels ) delete [] pixels;
 
     pixels = new Pixel[ width*height ];
 
+    // Asignación de pixeles de la imagen.
     int j = 0;
     for( int i = 0; i < image.size(); i += 4, j++ ){
         pixels[ j ].r = image[ i ];
-        pixels[ j ].g = image[ i+1 ];
-        pixels[ j ].b = image[ i+2 ];
-        pixels[ j ].a = image[ i+3 ];
+        pixels[ j ].g = image[ (i+1) ];
+        pixels[ j ].b = image[ (i+2) ];
+        pixels[ j ].a = image[ (i+3) ];
     }
 }
 
 // Guardar una imagen.
-void Image::write(const char *f) {
-    // Declaración de variables
+void Image::write( const char *filename ) {
     vector<unsigned char> image;
+
+    // Aumentar tamaño para manipulación.
+    image.resize( 4*( width*height ) );
+
+    // Asignación de pixeles en la imagen.
     int j = 0;
-
-    // Aumentar tamaño para manipulación
-    image.resize(width * height * 4);
-
-    // Asignación de pixeles en la imagen
     for( int i = 0; i < image.size(); i += 4, j++ ){
-        image[i] = pixels[j].r;
-        image[(i + 1)] = pixels[j].g;
-        image[(i + 2)] = pixels[j].b;
-        image[(i + 3)] = pixels[j].a;
+        image[ i ]     = pixels[j].r;
+        image[ (i+1) ] = pixels[j].g;
+        image[ (i+2) ] = pixels[j].b;
+        image[ (i+3) ] = pixels[j].a;
     }
 
-    // Creando archivo de salida
-    encodeOneStep(f, image, width, height);
+    // Codifica la imagen.
+    unsigned error = encode( filename, image, width, height );
+
+    // Si algún error se encuentra durante el proceso, mostrarlo.
+    if( error ) cout << "Hubo un error al codificar (error " << error << "): " << lodepng_error_text( error ) << endl;
 }
 
 // Regresa referencia al valor en x, y. Para consultar/modificar el valor.
@@ -108,6 +117,17 @@ Pixel &Image::operator()( int x, int y ) {
 
 // Operador de asignación.
 const Image &Image::operator=( const Image &img ) {
+    if( &img != this ) {
+        // Asignación de ancho y alto de la imagen.
+        width  = img.width;
+        height = img.height;
+
+        // Si llega a existir un arreglo pixels antes de ser inicializado, se libera.
+        if( pixels ) delete [] pixels;
+
+        pixels = new Pixel[ width * height ];
+    }
+
     return *this;
 }
 
@@ -117,27 +137,3 @@ Image &Image::operator+( const Image &img ) {
 }
 
 Image::~Image() { if( pixels ) delete [] pixels; }
-
-vector<unsigned char> *imgToChar( const Image &img ) {
-    int size = 4 * ( img.width * img.height );
-    int sizep = img.width * img.height;
-    
-    vector< unsigned char > *arrimg = new vector< unsigned char >( size );
-
-    int j = 0;
-    for( int i = 0; i < size; i += 4, j++ ) {
-        (*arrimg)[ i ]   = img.pixels[ j ].r;
-        (*arrimg)[ i+1 ] = img.pixels[ j ].g;
-        (*arrimg)[ i+2 ] = img.pixels[ j ].b;
-        (*arrimg)[ i+3 ] = img.pixels[ j ].a;
-    }
-
-    return  arrimg;
-}
-
-void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsigned width, unsigned height) {
-    //Encode the image
-    unsigned error = lodepng::encode(filename, image, width, height);
-    //if there's an error, display it
-    if(error) std::cout << "encoder error " << error << ": "<< lodepng_error_text(error) << std::endl;
-}

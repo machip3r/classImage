@@ -8,73 +8,88 @@ void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsi
 
 int main( void ) {
 
-    Image img;
-    Pixel px;
-    char filename[80], filename2[80];
-    // unsigned int r = 0, g = 0, b = 0, a = 0;
+    char input[80], output[80];
+    unsigned int resp = 0;
 
-    img.read("test.png");
+    cout << "Menú: " << endl
+         << "1. Crear una imagen vacía. " << endl
+         << "2. Abrir una imagen (sólo muestra las dimensiones de la imagen)." << endl
+         << "3. Editar 1 píxel de una imagen (.png)." << endl
+         << "Respuesta: ";
+    cin >> resp; cin.ignore( 256, '\n' );
+    cout << endl << "--------------------------------------------------------------" << endl << endl;
 
-    Image img2( img );
+    switch( resp ) {
+        case 1: {
+            int w = 0, h = 0;
+            cout << "Introduce alto: ";  cin >> h; cin.ignore( 256, '\n' );
+            cout << "Introduce ancho: "; cin >> w; cin.ignore( 256, '\n' );
+            Image img( h, w );
+            
+            cout << "Introduce el nombre del archivo resultante: ";
+            cin.getline( output, 80, '\n' );
+            img.write( output );
+        }
+        break;
 
-    cout << "El ancho de la imagen: " << img.getWidth() << '.' << endl
-         << "El alto de la imagen: " << img.getHeight() << '.' << endl << endl;
+        case 2: {
+            cout << "Introduce el nombre del archivo de imagen (.png): ";
+            cin.getline( input, 80, '\n' );
+            Image img( input );
 
-    // cout << "Píxel 7, 3 original de img:" << endl
-	//  << "Rojo: "      << +px.r << endl
-	//  << "Verde: " 	  << +px.g << endl
-	//  << "Azul: " 	  << +px.b << endl
-	//  << "Alpha: " 	  << +px.a << endl << endl;
+            cout << "El ancho de la imagen: " << img.getWidth() << '.' << endl
+                 << "El alto de la imagen: "  << img.getHeight() << '.' << endl << endl;
+        }
+        break;
 
-    // cout << "Píxel 7, 3 original de img2:" << endl
-	//  << "Rojo: "      << +px2.r << endl
-	//  << "Verde: " 	  << +px2.g << endl
-	//  << "Azul: " 	  << +px2.b << endl
-	//  << "Alpha: " 	  << +px2.a << endl << endl;
+        case 3: {
+            Image img;
+            unsigned int x = 0, y = 0;  // Coordenadas píxel.
+            unsigned int r = 0, g = 0, b = 0, a = 0;    // Parámetros píxel.
 
-    // cout << "Introduce un nuevo valor de r: "; cin >> r;
-    // cout << "Introduce un nuevo valor de g: "; cin >> g;
-    // cout << "Introduce un nuevo valor de b: "; cin >> b;
-    // cout << "Introduce un nuevo valor de a: "; cin >> a;
+            cout << "Introduce el nombre del archivo de imagen (.png): ";
+            cin.getline( input, 80, '\n' );
+            img.read( input );
 
-    // px.r = r;
-    // px.g = g;
-    // px.b = b;
-    // px.a = a;
+            cout << "El ancho de la imagen: " << img.getWidth() << '.' << endl
+                 << "El alto de la imagen: "  << img.getHeight() << '.' << endl << endl;
 
-    // px2.r = r;
-    // px2.g = g;
-    // px2.b = b;
-    // px2.a = a;
+            cout << "Coordenada X del píxel a editar: "; cin >> x; cin.ignore( 256, '\n' );
+            cout << "Coordenada Y del píxel a editar: "; cin >> y; cin.ignore( 256, '\n' );
 
-    // cout << endl;    
-    // cout << "Píxel 7, 3 de img modificado:" << endl
-	//  << "Rojo: "      << +px.r << endl
-	//  << "Verde: " 	  << +px.g << endl
-	//  << "Azul: " 	  << +px.b << endl
-	//  << "Alpha: " 	  << +px.a << endl << endl;
-    
-    // cout << endl;
-    // cout << "Píxel 7, 3 de img2 modificado:" << endl
-	//  << "Rojo: "      << +px2.r << endl
-	//  << "Verde: " 	  << +px2.g << endl
-	//  << "Azul: " 	  << +px2.b << endl
-	//  << "Alpha: " 	  << +px2.a << endl << endl;
+            Pixel &px = img( x, y );   
+            cout << endl; 
+            cout << "Información de Píxel (" << x << ", " << y << "):" << endl
+                 << "Rojo: "      << +px.r << endl
+                 << "Verde: " 	  << +px.g << endl
+                 << "Azul: " 	  << +px.b << endl
+                 << "Alpha: " 	  << +px.a << endl << endl;
 
-    cout << "Introduce el nombre del archivo de salida: ";
-    cin >> filename;
-    strcpy( filename2, filename );
-    strcat( filename,   ".png" );
-    strcat( filename2, "2.png" );
+            cout << "Introduce un nuevo valor de r: "; cin >> r; cin.ignore( 256, '\n' );
+            cout << "Introduce un nuevo valor de g: "; cin >> g; cin.ignore( 256, '\n' );
+            cout << "Introduce un nuevo valor de b: "; cin >> b; cin.ignore( 256, '\n' );
+            cout << "Introduce un nuevo valor de a: "; cin >> a; cin.ignore( 256, '\n' );
+            
+            px.r = r;
+            px.g = g;
+            px.b = b;
+            px.a = a;
 
-    vector< unsigned char > *imgr = imgToChar( img );
-    img.write( filename );
+            cout << endl;    
+            cout << "Después de modificación de Píxel (" << x << ", " << y << "):" << endl
+                 << "Rojo: "      << +px.r << endl
+                 << "Verde: " 	  << +px.g << endl
+                 << "Azul: " 	  << +px.b << endl
+                 << "Alpha: " 	  << +px.a << endl << endl;
 
-    vector< unsigned char > *imgr2 = imgToChar( img2 );
-    img2.write( filename2 );
+            cout << "Introduce el nombre del archivo de salida: ";
+            cin >> output; cin.ignore( 256, '\n' );
+            strcat( output, ".png" );
 
-    delete imgr;
-    delete imgr2;
+            img.write( output );
+        }
+        break;
+    }
 
     return 0;
 }

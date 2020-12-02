@@ -17,7 +17,6 @@
 using namespace std;
 
 class Image {
-    friend vector< unsigned char > *imgToChar( const Image & );
 public:
     // Constructor por defecto.
     Image();
@@ -35,7 +34,7 @@ public:
     void read( const char * );
 
     // Guardar una imagen.
-    void write(const char*);
+    void write( const char * );
 
     // Obtener los miembros privados (funciones inline).
     int getWidth() const { return width; }
@@ -53,11 +52,12 @@ public:
     // Destructor.
     ~Image();
 private:
+    // Datos miembro.
     int width;	// Ancho de la imagen.
     int height;	// Alto de la imagen.
     Pixel* pixels;  // Arreglo/matriz de Pixel contenedora de la imagen en formato bruto.
-};
 
-void encodeOneStep(const char*, std::vector<unsigned char>&, unsigned, unsigned);
+    // Funciones de utilidad.
+};
 
 #endif //IMAGE_H
