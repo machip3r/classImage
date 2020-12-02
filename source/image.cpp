@@ -26,12 +26,16 @@ Image::Image() {
 
 // Constructor paramétrico (crear imagen de ancho y alto definido).
 Image::Image( int w, int h ) {
-
+    // Asignación de ancho y alto de la imagem
+    width  = w;
+    height = h;
+    pixels = nullptr;
 }
 
 // Constructor paramétrico (abre el archivo con el nombre especificado).
-Image::Image( const char *archivo ) {
-
+Image::Image( const char *f ) {
+    // Lectura de archivo y asignación al objeto
+    read(f);
 }
 
 // Constructor copia.
