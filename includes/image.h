@@ -42,7 +42,7 @@ public:
     int getHeight() const { return height; }
 
     // Regresa referencia al valor en x, y. Para consultar/modificar el valor.
-    Pixel operator()( int, int );
+    Pixel &operator()( int, int );
 
     // Operador de asignación.
     const Image &operator=( const Image & );

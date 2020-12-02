@@ -57,7 +57,7 @@ void Image::read( const char *filename ) {
 
     pixels = new Pixel[ width*height ];
 
-    int j=0;
+    int j = 0;
     for( int i = 0; i < image.size(); i += 4, j++ ){
         pixels[ j ].r = image[ i ];
         pixels[ j ].g = image[ i+1 ];
@@ -88,7 +88,7 @@ void Image::write(const char *f) {
 }
 
 // Regresa referencia al valor en x, y. Para consultar/modificar el valor.
-Pixel Image::operator()( int x, int y ) {
+Pixel &Image::operator()( int x, int y ) {
     int index = ( y * width ) + x;
     return pixels[ index ];
 }
@@ -103,9 +103,7 @@ Image &Image::operator+( const Image &img ) {
     return *this;
 }
 
-Image::~Image(){
-
-}
+Image::~Image() { if( pixels ) delete [] pixels; }
 
 vector<unsigned char> *imgToChar( const Image &img ) {
     int size = 4 * ( img.width * img.height );
