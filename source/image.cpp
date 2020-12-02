@@ -25,22 +25,35 @@ Image::Image() {
 }
 
 // Constructor paramétrico (crear imagen de ancho y alto definido).
-Image::Image( int w, int h ) {
+Image::Image( int w, int h ): Image() {
     // Asignación de ancho y alto de la imagem
     width  = w;
     height = h;
-    pixels = nullptr;
+
+    // Si llega a existir un arreglo pixels antes de ser inicializado, se libera.
+    if( pixels ) delete [] pixels;
+    
+    pixels = new Pixel[ w * h ];
 }
 
 // Constructor paramétrico (abre el archivo con el nombre especificado).
-Image::Image( const char *f ) {
+Image::Image( const char *f ): Image() {
     // Lectura de archivo y asignación al objeto
-    read(f);
+    read( f );
 }
 
 // Constructor copia.
-Image::Image( Image *img ) {
+Image::Image( const Image &img ): Image() {
+    if( &img != this ) {
+        width = img.width;
+        height = img.height;
 
+        if( pixels ) delete [] pixels;
+        pixels = new Pixel[ width*height ];
+
+        for( int i = 0; i < ( width*height ); i++ )
+            pixels[i] = img.pixels[i];
+    }
 }
 
 // Abrir una imagen.

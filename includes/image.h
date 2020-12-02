@@ -17,7 +17,7 @@
 using namespace std;
 
 class Image {
-    friend vector< unsigned char > *imgToChar( const Image &img );
+    friend vector< unsigned char > *imgToChar( const Image & );
 public:
     // Constructor por defecto.
     Image();
@@ -29,10 +29,10 @@ public:
     Image( const char * );
 
     // Constructor copia.
-    Image( Image * );
+    Image( const Image & );
 
     // Abrir una imagen.
-    void read( const char *filename );
+    void read( const char * );
 
     // Guardar una imagen.
     void write(const char*);
