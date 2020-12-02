@@ -1,5 +1,5 @@
 /*
-    Desarrollado por: 
+    Desarrollado por:
         * Baca Barbosa Braulio José.
         * Guevara Mosqueda Héctor.
         * Hernández Antonio Aldo Isaac.
@@ -35,7 +35,7 @@ public:
     void read( const char *filename );
 
     // Guardar una imagen.
-    void write();
+    void write(const char*);
 
     // Obtener los miembros privados (funciones inline).
     int getWidth() const { return width; }
@@ -57,5 +57,7 @@ private:
     int height;	// Alto de la imagen.
     Pixel* pixels;  // Arreglo/matriz de Pixel contenedora de la imagen en formato bruto.
 };
+
+void encodeOneStep(const char*, std::vector<unsigned char>&, unsigned, unsigned);
 
 #endif //IMAGE_H

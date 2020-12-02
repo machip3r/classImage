@@ -12,15 +12,12 @@ int main() {
     std::vector<unsigned char>  *imgr =imgToChar(img);
     char filename[80];
     cout<<"w: "<<img.getWidth()<<" h"<<img.getHeight()<<endl;
-    cout<<"Nombre del archivo: ";
+    cout<<"Nombre del nuevo archivo archivo: ";
     cin>>filename;
-    encodeOneStep(filename,*imgr,img.getWidth(),img.getHeight());
+    //encodeOneStep(filename,*imgr,img.getWidth(),img.getHeight());
+
+    img.write(strcat(filename, ".png"));
+
     delete imgr;
     return 0;
-}
-void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsigned width, unsigned height) {
-    //Encode the image
-    unsigned error = lodepng::encode(filename, image, width, height);
-    //if there's an error, display it
-    if(error) std::cout << "encoder error " << error << ": "<< lodepng_error_text(error) << std::endl;
 }

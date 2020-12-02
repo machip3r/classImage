@@ -1,5 +1,5 @@
 /*
-    Desarrollado por: 
+    Desarrollado por:
         * Baca Barbosa Braulio José.
         * Guevara Mosqueda Héctor.
         * Hernández Antonio Aldo Isaac.
@@ -41,14 +41,13 @@ Image::Image( Image *img ) {
 
 // Abrir una imagen.
 void Image::read( const char *filename ) {
-    
     vector< unsigned char > image;
 
     // Decodificamos la imagen.
     unsigned error = decode( image, ( unsigned & ) width, ( unsigned & ) height, filename );
 
     if( error ) cout << "Hubo un error de ejecución.\nEl error: " << lodepng_error_text(error) << endl;
-    
+
     // Si el arreglo de pixeles se encuentra inicializado, eliminar.
     if( pixels ) delete [] pixels;
 
@@ -64,8 +63,27 @@ void Image::read( const char *filename ) {
 }
 
 // Guardar una imagen.
-void Image::write() {
+void Image::write(const char *f) {
+    vector<unsigned char> image;
+    int j = 0;
 
+    image.resize(width * height * 4);
+    /* for(int j = 0; j < height; j++)
+        for(int i = 0; i < width; i++) {
+            image[4 * width * j + 4 * i + 0] = pixels[j].r;
+            image[4 * width * j + 4 * i + 1] = pixels[j].g;
+            image[4 * width * j + 4 * i + 2] = pixels[j].b;
+            image[4 * width * j + 4 * i + 3] = pixels[j].a;
+        } */
+
+    for( int i = 0; i < image.size(); i += 4, j++ ){
+        image[i] = pixels[j].r;
+        image[(i + 1)] = pixels[j].g;
+        image[(i + 2)] = pixels[j].b;
+        image[(i + 3)] = pixels[j].a;
+    }
+
+    encodeOneStep(f, image, width, height);
 }
 
 // Regresa referencia al valor en x, y. Para consultar/modificar el valor.
@@ -103,4 +121,11 @@ vector<unsigned char> *imgToChar( const Image &img ) {
     }
 
     return  arrimg;
+}
+
+void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsigned width, unsigned height) {
+    //Encode the image
+    unsigned error = lodepng::encode(filename, image, width, height);
+    //if there's an error, display it
+    if(error) std::cout << "encoder error " << error << ": "<< lodepng_error_text(error) << std::endl;
 }
