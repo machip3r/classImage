@@ -64,18 +64,14 @@ void Image::read( const char *filename ) {
 
 // Guardar una imagen.
 void Image::write(const char *f) {
+    // Declaración de variables
     vector<unsigned char> image;
     int j = 0;
 
+    // Aumentar tamaño para manipulación
     image.resize(width * height * 4);
-    /* for(int j = 0; j < height; j++)
-        for(int i = 0; i < width; i++) {
-            image[4 * width * j + 4 * i + 0] = pixels[j].r;
-            image[4 * width * j + 4 * i + 1] = pixels[j].g;
-            image[4 * width * j + 4 * i + 2] = pixels[j].b;
-            image[4 * width * j + 4 * i + 3] = pixels[j].a;
-        } */
 
+    // Asignación de pixeles en la imagen
     for( int i = 0; i < image.size(); i += 4, j++ ){
         image[i] = pixels[j].r;
         image[(i + 1)] = pixels[j].g;
@@ -83,6 +79,7 @@ void Image::write(const char *f) {
         image[(i + 3)] = pixels[j].a;
     }
 
+    // Creando archivo de salida
     encodeOneStep(f, image, width, height);
 }
 
