@@ -137,71 +137,30 @@ const Image &Image::operator=( const Image &img ) {
 }
 
 // Combina dos imágenes superponiéndolas (A arriba, B abajo).
-Image &Image::operator+( const Image &img ) {
+Image Image::operator+( const Image &img ) {
+    Image res;
+
     // Si las imágenes son el mismo objeto simplemente regresa una copia de este.
-    if( this != &img )
+    if( ( this != &img ) && ( pixels && img.pixels ) ) {
+        res.width = ( width > img.width ) ? width : img.width;
+        res.height = ( height > img.height ) ? height : img.height;
 
-        // Si no son objetos vacíos, hará la suma.
-        if( pixels && img.pixels ) {
+        res.pixels = new Pixel[ res.width*res.height ];
+        
+        // Copiamos la imagen contenida en img primero (para que esté debajo).
+        for( int i = 0; i < img.height; i++ )
+            for( int j = 0; j < img.width; j++ )
+                res.pixels[ (i*res.width) + j ] = img.pixels[ (i*img.width) + j ];
 
-            // Si tienen el mismo tamaño, simplemente se sustituye.
-            if( width == img.width && height == img.height ) {                    
-                for( int i = 0; i < width*height; i++ )
-                    if( pixels[ i ].r != img.pixels[ i ].r && 
-                        pixels[ i ].g != img.pixels[ i ].g && 
-                        pixels[ i ].b != img.pixels[ i ].b && 
-                        pixels[ i ].a != img.pixels[ i ].a )
-                        pixels[ i ] = img.pixels[ i ];
-            } else {    // Si no son de las mismas dimensiones.
+        // Copiamos la imagen contenida en *this después (para que esté encima de img).
+        for( int i = 0; i < height; i++ )
+            for( int j = 0; j < width; j++ )
+                if( pixels[ (i*width) + j ].a > 0 )
+                    res.pixels[ (i*res.width) + j ] = pixels[ (i*width) + j ];
 
-                // Si la imagen B es más grande que A.
-                if( img.width > width && img.height > height ) {
-
-                    // Creamos una copia de la imagen en A.
-                    Pixel *pxAux = new Pixel[ width*height ];
-
-                    if( pixels ) 
-                        for( int i = 0; i < (width*height); i++ )
-                            pxAux[i] = pixels[i];
-
-                    // Después de copiar, creamos una imagen más grande.
-                    if( pixels ) delete [] pixels;
-                    pixels = new Pixel[ img.width*img.height ];
-
-                    // Copiamos de nuevo la imagen original en la nueva imagen redimensionada.
-                    for( int i = 0; i < height; i++ )
-                        for( int j = 0; j < width; j++ )
-                            pixels[ (i*img.width) + j ] = pxAux[ (i*width) + j];
-
-                    // Actualizamos la información de la clase.
-                    width  = img.width;
-                    height = img.height;
-
-                    // Liberamos la memoria de la copia.
-                    delete [] pxAux;
-                    
-                    // Ponemos A encima de B.
-                    for( int i = 0; i < width*height; i++ )
-                        if( pixels[ i ].r != img.pixels[ i ].r && 
-                            pixels[ i ].g != img.pixels[ i ].g && 
-                            pixels[ i ].b != img.pixels[ i ].b && 
-                            pixels[ i ].a != img.pixels[ i ].a )
-                            pixels[ i ] = img.pixels[ i ];
-
-                } else {    // Si la imagen A es mayor que B.
-
-                    // Ponemos A encima de B.
-                    for( int i = 0; i < img.height; i++ )
-                        for( int j = 0; j < img.width; j++ )
-                            if( pixels[ (i*width) + j ].r != img.pixels[ (i*img.width) + j ].r && 
-                                pixels[ (i*width) + j ].g != img.pixels[ (i*img.width) + j ].g && 
-                                pixels[ (i*width) + j ].b != img.pixels[ (i*img.width) + j ].b && 
-                                pixels[ (i*width) + j ].a != img.pixels[ (i*img.width) + j ].a )
-                                pixels[ (i*width) + j ] = img.pixels[ (i*img.width) + j ];
-                }
-            }
-        }
-    return *this;
+    } else return *this;
+    
+    return res;
 }
 
 // Simplemente para debug, borrar después.

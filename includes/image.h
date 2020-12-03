@@ -47,7 +47,7 @@ public:
     const Image &operator=( const Image & );
 
     // Combina dos imágenes superponiéndolas (A arriba, B abajo).
-    Image &operator+( const Image & );
+    Image operator+( const Image & );
 
     // Imprimir arreglo de píxeles.
     void printPixels() const;

@@ -8,7 +8,7 @@ int main( void ) {
     char input[80], output[80];
     unsigned int resp = 0;
 
-    cout << "Menú: " << endl
+    cout << "***Asegúrate de colocar tus imágenes en la carpeta images o especificar la ruta de acceso***" << endl << endl
          << "1. Crear una imagen vacía. " << endl
          << "2. Abrir una imagen (sólo muestra las dimensiones de la imagen)." << endl
          << "3. Editar 1 píxel de una imagen (.png)." << endl
@@ -99,7 +99,7 @@ int main( void ) {
             cout << "Introduce el nombre del archivo de la imagen B (.png): ";
             cin.getline( input, 80, '\n' );
             imgB.read( input );
-            
+
             imgC = imgA + imgB;
 
             cout << "Introduce el nombre del archivo de salida C (.png): ";
