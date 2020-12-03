@@ -3,9 +3,6 @@
 #include "./includes/image.h"
 #include "./includes/lodepng.h"
 
-//Solo es para probar segun escribe una imagen a archivo
-void encodeOneStep(const char* filename, std::vector<unsigned char>& image, unsigned width, unsigned height);
-
 int main( void ) {
 
     char input[80], output[80];
@@ -15,6 +12,7 @@ int main( void ) {
          << "1. Crear una imagen vacía. " << endl
          << "2. Abrir una imagen (sólo muestra las dimensiones de la imagen)." << endl
          << "3. Editar 1 píxel de una imagen (.png)." << endl
+         << "4. Sumar dos imágenes (A encima de B)." << endl
          << "Respuesta: ";
     cin >> resp; cin.ignore( 256, '\n' );
     cout << endl << "--------------------------------------------------------------" << endl << endl;
@@ -87,6 +85,26 @@ int main( void ) {
             strcat( output, ".png" );
 
             img.write( output );
+        }
+        break;
+
+        case 4: {
+
+            Image imgA, imgB, imgC;
+
+            cout << "Introduce el nombre del archivo de la imagen A (.png): ";
+            cin.getline( input, 80, '\n' );
+            imgA.read( input );
+
+            cout << "Introduce el nombre del archivo de la imagen B (.png): ";
+            cin.getline( input, 80, '\n' );
+            imgB.read( input );
+            
+            imgC = imgA + imgB;
+
+            cout << "Introduce el nombre del archivo de salida C (.png): ";
+            cin.getline( output, 80, '\n' );
+            imgC.write( output );
         }
         break;
     }

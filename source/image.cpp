@@ -9,6 +9,7 @@
 
 // Dependencias.
 #include <iostream>
+#include <cmath>
 
 #include "../includes/pixel.h"
 #include "../includes/image.h"
@@ -84,6 +85,9 @@ void Image::read( const char *filename ) {
         pixels[ j ].b = image[ (i+2) ];
         pixels[ j ].a = image[ (i+3) ];
     }
+
+    // cout << "Imagen leída: " << endl;
+    // printPixels();
 }
 
 // Guardar una imagen.
@@ -118,14 +122,15 @@ Pixel &Image::operator()( int x, int y ) {
 // Operador de asignación.
 const Image &Image::operator=( const Image &img ) {
     if( &img != this ) {
+        // Si llega a existir un arreglo pixels antes de ser inicializado, se libera.
+        if( pixels ) delete [] pixels;
+
         // Asignación de ancho y alto de la imagen.
         width  = img.width;
         height = img.height;
 
-        // Si llega a existir un arreglo pixels antes de ser inicializado, se libera.
-        if( pixels ) delete [] pixels;
-
         pixels = new Pixel[ width * height ];
+        for( int i = 0; i < ( width*height ); i++ ) pixels[i] = img.pixels[i];
     }
 
     return *this;
@@ -133,7 +138,82 @@ const Image &Image::operator=( const Image &img ) {
 
 // Combina dos imágenes superponiéndolas (A arriba, B abajo).
 Image &Image::operator+( const Image &img ) {
+    // Si las imágenes son el mismo objeto simplemente regresa una copia de este.
+    if( this != &img )
+
+        // Si no son objetos vacíos, hará la suma.
+        if( pixels && img.pixels ) {
+
+            // Si tienen el mismo tamaño, simplemente se sustituye.
+            if( width == img.width && height == img.height ) {                    
+                for( int i = 0; i < width*height; i++ )
+                    if( pixels[ i ].r != img.pixels[ i ].r && 
+                        pixels[ i ].g != img.pixels[ i ].g && 
+                        pixels[ i ].b != img.pixels[ i ].b && 
+                        pixels[ i ].a != img.pixels[ i ].a )
+                        pixels[ i ] = img.pixels[ i ];
+            } else {    // Si no son de las mismas dimensiones.
+
+                // Si la imagen B es más grande que A.
+                if( img.width > width && img.height > height ) {
+
+                    // Creamos una copia de la imagen en A.
+                    Pixel *pxAux = new Pixel[ width*height ];
+
+                    if( pixels ) 
+                        for( int i = 0; i < (width*height); i++ )
+                            pxAux[i] = pixels[i];
+
+                    // Después de copiar, creamos una imagen más grande.
+                    if( pixels ) delete [] pixels;
+                    pixels = new Pixel[ img.width*img.height ];
+
+                    // Copiamos de nuevo la imagen original en la nueva imagen redimensionada.
+                    for( int i = 0; i < height; i++ )
+                        for( int j = 0; j < width; j++ )
+                            pixels[ (i*img.width) + j ] = pxAux[ (i*width) + j];
+
+                    // Actualizamos la información de la clase.
+                    width  = img.width;
+                    height = img.height;
+
+                    // Liberamos la memoria de la copia.
+                    delete [] pxAux;
+                    
+                    // Ponemos A encima de B.
+                    for( int i = 0; i < width*height; i++ )
+                        if( pixels[ i ].r != img.pixels[ i ].r && 
+                            pixels[ i ].g != img.pixels[ i ].g && 
+                            pixels[ i ].b != img.pixels[ i ].b && 
+                            pixels[ i ].a != img.pixels[ i ].a )
+                            pixels[ i ] = img.pixels[ i ];
+
+                } else {    // Si la imagen A es mayor que B.
+
+                    // Ponemos A encima de B.
+                    for( int i = 0; i < img.height; i++ )
+                        for( int j = 0; j < img.width; j++ )
+                            if( pixels[ (i*width) + j ].r != img.pixels[ (i*img.width) + j ].r && 
+                                pixels[ (i*width) + j ].g != img.pixels[ (i*img.width) + j ].g && 
+                                pixels[ (i*width) + j ].b != img.pixels[ (i*img.width) + j ].b && 
+                                pixels[ (i*width) + j ].a != img.pixels[ (i*img.width) + j ].a )
+                                pixels[ (i*width) + j ] = img.pixels[ (i*img.width) + j ];
+                }
+            }
+        }
     return *this;
+}
+
+// Simplemente para debug, borrar después.
+void Image::printPixels() const {
+    for( int i = 0; i < height; i++ ) {
+        for( int j = 0; j < width; j++ )
+            cout << "[" << pixels[ (i*width) + j ].r << pixels[ (i*width) + j ].g
+                        << pixels[ (i*width) + j ].b << pixels[ (i*width) + j ].a
+                 << "]\t";
+        cout << endl;
+    }
+    cout << endl;
 }
 
 Image::~Image() { if( pixels ) delete [] pixels; }

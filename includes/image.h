@@ -49,6 +49,9 @@ public:
     // Combina dos imágenes superponiéndolas (A arriba, B abajo).
     Image &operator+( const Image & );
 
+    // Imprimir arreglo de píxeles.
+    void printPixels() const;
+
     // Destructor.
     ~Image();
 private:
