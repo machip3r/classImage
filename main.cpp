@@ -6,10 +6,11 @@
 
 // Función principal
 int main( void ) {
-
+     unsigned int resp;
+    do{
     // Declaración e inicialización de variables
     char input[80], output[80];
-    unsigned int resp = 0;
+   
 
     // Menú y solictud de variable
     cout << "***Asegúrate de colocar tus imágenes en la carpeta images o especificar la ruta de acceso***" << endl << endl
@@ -17,6 +18,7 @@ int main( void ) {
          << "2. Abrir una imagen (sólo muestra las dimensiones de la imagen)." << endl
          << "3. Editar 1 píxel de una imagen (.png)." << endl
          << "4. Sumar dos imágenes (A encima de B)." << endl
+         <<"0. Salir del programa"<<endl
          << "Respuesta: ";
     // Lectura de variable
     cin >> resp; cin.ignore( 256, '\n' );
@@ -151,7 +153,9 @@ int main( void ) {
             imgC.write( output );
         }
         break;
-
+        case 0:
+            cout<<"\nAdios......";
+        break;
         // Validación de valores inválidos en el menú
         default: {
             // Salto de línea
@@ -163,7 +167,7 @@ int main( void ) {
         }
         break;
     }
-
+    }while(resp!=0);
     // Salida exitosa del programa
     return 0;
 }
