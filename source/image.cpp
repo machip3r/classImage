@@ -146,7 +146,7 @@ Image Image::operator+( const Image &img ) {
         res.height = ( height > img.height ) ? height : img.height;
 
         res.pixels = new Pixel[ res.width*res.height ];
-        
+
         // Copiamos la imagen contenida en img primero (para que esté debajo).
         for( int i = 0; i < img.height; i++ )
             for( int j = 0; j < img.width; j++ )
@@ -159,7 +159,7 @@ Image Image::operator+( const Image &img ) {
                     res.pixels[ (i*res.width) + j ] = pixels[ (i*width) + j ];
 
     } else return *this;
-    
+
     return res;
 }
 

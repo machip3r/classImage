@@ -1,5 +1,5 @@
 /*
-    Desarrollado por: 
+    Desarrollado por:
         * Baca Barbosa Braulio José.
         * Guevara Mosqueda Héctor.
         * Hernández Antonio Aldo Isaac.
@@ -16,7 +16,7 @@ struct Pixel {
 
     // Funciones miembro.
     void modificarPixel( char = 255, char = 255, char = 255, char = 255 );
-    
+
     // Datos de miembro: Red, Green, Blue, Alpha, respectivamente.
     unsigned char r, g, b, a;
 };

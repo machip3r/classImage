@@ -1,5 +1,5 @@
 /*
-    Desarrollado por: 
+    Desarrollado por:
         * Baca Barbosa Braulio José.
         * Guevara Mosqueda Héctor.
         * Hernández Antonio Aldo Isaac.
@@ -10,6 +10,7 @@
 // Dependencias.
 #include "../includes/pixel.h"
 
+// Constructor por defecto
 Pixel::Pixel( char red, char green, char blue, char alpha ) {
     r = red;
     b = blue;
@@ -17,6 +18,7 @@ Pixel::Pixel( char red, char green, char blue, char alpha ) {
     a = alpha;
 }
 
+// Función para modificar Pixel
 void Pixel::modificarPixel( char red, char green, char blue, char alpha ) {
 	r = red;
 	g = green;
