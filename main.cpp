@@ -26,7 +26,7 @@ int main( void ) {
 		// Introducción de la operación.
 		cin >> resp; cin.ignore( 256, '\n' );
 		cout << endl << "--------------------------------------------------------------" << endl << endl;
-		
+
 		// Menú y acciones.
 		switch( resp ) {
 
