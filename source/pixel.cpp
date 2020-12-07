@@ -16,3 +16,10 @@ Pixel::Pixel( char red, char green, char blue, char alpha ) {
     g = green;
     a = alpha;
 }
+
+void Pixel::modificarPixel( char red, char green, char blue, char alpha ) {
+	r = red;
+	g = green;
+	b = blue;
+	a = alpha;
+}

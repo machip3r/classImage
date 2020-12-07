@@ -12,7 +12,10 @@
 
 struct Pixel {
     // Constructor.
-    Pixel( char = 0, char = 0, char = 0, char = 0 );
+    Pixel( char = 255, char = 255, char = 255, char = 255 );
+
+    // Funciones miembro.
+    void modificarPixel( char = 255, char = 255, char = 255, char = 255 );
     
     // Datos de miembro: Red, Green, Blue, Alpha, respectivamente.
     unsigned char r, g, b, a;

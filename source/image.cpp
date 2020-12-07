@@ -163,16 +163,4 @@ Image Image::operator+( const Image &img ) {
     return res;
 }
 
-// Simplemente para debug, borrar después.
-void Image::printPixels() const {
-    for( int i = 0; i < height; i++ ) {
-        for( int j = 0; j < width; j++ )
-            cout << "[" << pixels[ (i*width) + j ].r << pixels[ (i*width) + j ].g
-                        << pixels[ (i*width) + j ].b << pixels[ (i*width) + j ].a
-                 << "]\t";
-        cout << endl;
-    }
-    cout << endl;
-}
-
 Image::~Image() { if( pixels ) delete [] pixels; }

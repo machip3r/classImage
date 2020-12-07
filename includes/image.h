@@ -31,7 +31,7 @@ public:
     Image( const Image & );
 
     // Abrir una imagen.
-    void read( const char * );
+    void read( const char * = "images/salida.png" );
 
     // Guardar una imagen.
     void write( const char * );
@@ -48,9 +48,6 @@ public:
 
     // Combina dos imágenes superponiéndolas (A arriba, B abajo).
     Image operator+( const Image & );
-
-    // Imprimir arreglo de píxeles.
-    void printPixels() const;
 
     // Destructor.
     ~Image();
